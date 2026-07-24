@@ -1,10 +1,5 @@
 from sentence_transformers import SentenceTransformer
-
-from src.config import MODEL_NAME
+from src.config import EMBEDDING_MODEL
 
 def get_embedding_model():
-    try:
-        model = SentenceTransformer(MODEL_NAME, local_files_only=True)
-    except Exception:
-        model = SentenceTransformer(MODEL_NAME)
-    return model
+    return SentenceTransformer(EMBEDDING_MODEL)
