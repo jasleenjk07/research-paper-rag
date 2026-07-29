@@ -1,0 +1,198 @@
+[
+    {
+        "question": "What is self-attention?",
+        "expected_paper": "NIPS-2017-attention-is-all-you-need-Paper",
+        "category": "definition",
+        "difficulty": "easy",
+        "ground_truth": "Self-attention is a mechanism that allows each token in a sequence to attend to every other token by computing attention weights, enabling the model to capture long-range dependencies without recurrence or convolution."
+    },
+    {
+        "question": "What is LoRA?",
+        "expected_paper": "2106.09685v2-LoRA",
+        "category": "definition",
+        "difficulty": "easy",
+        "ground_truth": "LoRA (Low-Rank Adaptation) is a parameter-efficient fine-tuning method that freezes pretrained model weights and injects trainable low-rank matrices into Transformer layers, greatly reducing the number of trainable parameters."
+    },
+    {
+        "question": "What is the rank decomposition matrix?",
+        "expected_paper": "2106.09685v2-LoRA",
+        "category": "definition",
+        "difficulty": "easy",
+        "ground_truth": "The rank decomposition matrix in LoRA refers to the factorization of weight updates into two low-rank matrices, enabling efficient adaptation by learning only these smaller matrices instead of full weight updates."
+    },
+    {
+        "question": "What is WQ?",
+        "expected_paper": "2106.09685v2-LoRA",
+        "category": "definition",
+        "difficulty": "easy",
+        "ground_truth": "WQ represents the weight matrix corresponding to the query projection in the Transformer’s attention mechanism."
+    },
+    {
+        "question": "What is WK?",
+        "expected_paper": "2106.09685v2-LoRA",
+        "category": "definition",
+        "difficulty": "easy",
+        "ground_truth": "WK is the weight matrix corresponding to the key projection in the Transformer’s attention mechanism."
+    },
+    {
+        "question": "What is the FFN layer?",
+        "expected_paper": "2106.09685v2-LoRA",
+        "category": "definition",
+        "difficulty": "easy",
+        "ground_truth": "The FFN (Feed-Forward Network) layer is a position-wise fully connected feed-forward network applied after the attention mechanism in Transformers to increase model capacity."
+    },
+    {
+        "question": "Which benchmark is GLUE?",
+        "expected_paper": "2106.09685v2-LoRA",
+        "category": "definition",
+        "difficulty": "easy",
+        "ground_truth": "GLUE (General Language Understanding Evaluation) is a benchmark comprising multiple diverse natural language understanding tasks used to evaluate model performance."
+    },
+    {
+        "question": "Which datasets were used for SQuAD?",
+        "expected_paper": "2106.09685v2-LoRA",
+        "category": "definition",
+        "difficulty": "easy",
+        "ground_truth": "The SQuAD dataset used consists of question-answer pairs derived from Wikipedia articles for evaluating machine reading comprehension models."
+    },
+    {
+        "question": "What is Table 3?",
+        "expected_paper": "2106.09685v2-LoRA",
+        "category": "definition",
+        "difficulty": "easy",
+        "ground_truth": "Table 3 presents experimental results comparing LoRA’s parameter efficiency and performance against full fine-tuning and other adaptation methods."
+    },
+    {
+        "question": "What is Equation (5)?",
+        "expected_paper": "2106.09685v2-LoRA",
+        "category": "definition",
+        "difficulty": "easy",
+        "ground_truth": "Equation (5) formalizes the LoRA update as the sum of the pretrained weight matrix and the product of two low-rank matrices representing the trainable adaptation."
+    },
+    {
+        "question": "What is Dense Passage Retrieval?",
+        "expected_paper": "2020.emnlp-main.550-Dense-Passage-Retrieval",
+        "category": "definition",
+        "difficulty": "easy",
+        "ground_truth": "Dense Passage Retrieval (DPR) is a retrieval method that encodes queries and passages into dense vectors using neural networks and retrieves relevant passages via nearest neighbor search."
+    },
+    {
+        "question": "What is Retrieval-Augmented Generation?",
+        "expected_paper": "NeurIPS-2020-retrieval-augmented-generation-for-knowledge-intensive-nlp-tasks-Paper",
+        "category": "definition",
+        "difficulty": "easy",
+        "ground_truth": "Retrieval-Augmented Generation (RAG) is a framework that combines retrieval of relevant documents with generative models to improve knowledge-intensive NLP tasks."
+    },
+    {
+        "question": "What is masked language modeling?",
+        "expected_paper": "N19-1423- BERT",
+        "category": "definition",
+        "difficulty": "easy",
+        "ground_truth": "Masked language modeling is a pretraining objective where random tokens in the input are masked and the model learns to predict these masked tokens, enabling bidirectional context understanding."
+    },
+    {
+        "question": "Why can Transformers be trained in parallel?",
+        "expected_paper": "NIPS-2017-attention-is-all-you-need-Paper",
+        "category": "mechanism",
+        "difficulty": "medium",
+        "ground_truth": "Transformers can be trained in parallel because their self-attention mechanism processes all tokens simultaneously without relying on sequential computations like RNNs."
+    },
+    {
+        "question": "How does LoRA reduce trainable parameters?",
+        "expected_paper": "2106.09685v2-LoRA",
+        "category": "mechanism",
+        "difficulty": "medium",
+        "ground_truth": "LoRA reduces trainable parameters by freezing the pretrained weights and learning only low-rank matrices that approximate weight updates, significantly lowering the number of parameters that need training."
+    },
+    {
+        "question": "How does BERT use masked language modeling?",
+        "expected_paper": "N19-1423- BERT",
+        "category": "mechanism",
+        "difficulty": "medium",
+        "ground_truth": "BERT uses masked language modeling by randomly masking input tokens and training the model to predict these tokens, enabling it to learn deep bidirectional representations."
+    },
+    {
+        "question": "How does RAG combine retrieved documents with generation?",
+        "expected_paper": "NeurIPS-2020-retrieval-augmented-generation-for-knowledge-intensive-nlp-tasks-Paper",
+        "category": "mechanism",
+        "difficulty": "medium",
+        "ground_truth": "RAG combines retrieved documents by encoding them and conditioning the generative model on these retrieved passages to generate more informed and accurate responses."
+    },
+    {
+        "question": "How does Dense Passage Retrieval retrieve passages?",
+        "expected_paper": "2020.emnlp-main.550-Dense-Passage-Retrieval",
+        "category": "mechanism",
+        "difficulty": "medium",
+        "ground_truth": "Dense Passage Retrieval encodes queries and passages into dense vectors using separate encoders and retrieves passages by computing nearest neighbors in the vector space."
+    },
+    {
+        "question": "Why were Transformers introduced?",
+        "expected_paper": "NIPS-2017-attention-is-all-you-need-Paper",
+        "category": "motivation",
+        "difficulty": "medium",
+        "ground_truth": "Transformers were introduced to address the inefficiencies of sequential models by enabling parallel computation and capturing long-range dependencies via self-attention."
+    },
+    {
+        "question": "Why was BERT proposed?",
+        "expected_paper": "N19-1423- BERT",
+        "category": "motivation",
+        "difficulty": "medium",
+        "ground_truth": "BERT was proposed to pretrain deep bidirectional representations by jointly conditioning on both left and right context, improving performance on various NLP tasks."
+    },
+    {
+        "question": "Why use LoRA instead of full fine-tuning?",
+        "expected_paper": "2106.09685v2-LoRA",
+        "category": "motivation",
+        "difficulty": "medium",
+        "ground_truth": "LoRA is used instead of full fine-tuning to reduce computational and storage costs by training fewer parameters while maintaining competitive performance."
+    },
+    {
+        "question": "Why use Retrieval-Augmented Generation?",
+        "expected_paper": "NeurIPS-2020-retrieval-augmented-generation-for-knowledge-intensive-nlp-tasks-Paper",
+        "category": "motivation",
+        "difficulty": "medium",
+        "ground_truth": "Retrieval-Augmented Generation is used to improve knowledge-intensive tasks by integrating external information retrieval with generation, overcoming limitations of fixed parametric knowledge."
+    },
+    {
+        "question": "How many attention heads are used in the Transformer base model?",
+        "expected_paper": "NIPS-2017-attention-is-all-you-need-Paper",
+        "category": "experiment",
+        "difficulty": "hard",
+        "ground_truth": "The Transformer base model uses 8 attention heads in its multi-head self-attention mechanism."
+    },
+    {
+        "question": "How much does LoRA reduce trainable parameters?",
+        "expected_paper": "2106.09685v2-LoRA",
+        "category": "experiment",
+        "difficulty": "hard",
+        "ground_truth": "LoRA reduces trainable parameters by up to 10,000 times compared to full fine-tuning, depending on the rank chosen for the low-rank matrices."
+    },
+    {
+        "question": "Which datasets were used to evaluate DPR?",
+        "expected_paper": "2020.emnlp-main.550-Dense-Passage-Retrieval",
+        "category": "experiment",
+        "difficulty": "hard",
+        "ground_truth": "DPR was evaluated on datasets including Natural Questions, TriviaQA, and WebQuestions to measure retrieval and QA performance."
+    },
+    {
+        "question": "How is LoRA different from full fine-tuning?",
+        "expected_paper": "2106.09685v2-LoRA",
+        "category": "comparison",
+        "difficulty": "hard",
+        "ground_truth": "LoRA differs from full fine-tuning by freezing the original model weights and learning low-rank update matrices, which drastically reduces the number of trainable parameters."
+    },
+    {
+        "question": "How is BERT different from the Transformer encoder?",
+        "expected_paper": "N19-1423- BERT",
+        "category": "comparison",
+        "difficulty": "hard",
+        "ground_truth": "BERT differs from the original Transformer encoder by pretraining bidirectionally using masked language modeling and next sentence prediction tasks."
+    },
+    {
+        "question": "How is Dense Passage Retrieval different from BM25?",
+        "expected_paper": "2020.emnlp-main.550-Dense-Passage-Retrieval",
+        "category": "comparison",
+        "difficulty": "hard",
+        "ground_truth": "Dense Passage Retrieval differs from BM25 by using learned dense vector representations for queries and passages, enabling semantic retrieval beyond keyword matching."
+    }
+]
