@@ -1,9 +1,11 @@
 EMBEDDING_MODEL = "BAAI/bge-small-en-v1.5"
 CHUNK_SIZE = 750
 CHUNK_OVERLAP = 150
-TOP_K = 5
+HYBRID_RETRIEVE_K = 20
+FINAL_TOP_K = 5
 LLM_MODEL = "qwen3.5:4b"
 FAISS_INDEX_PATH = "storage/faiss.index"
 CHUNKS_PATH = "storage/chunks.pkl"
 PROCESSED_PAPERS_PATH = "storage/processed_papers.json"
+RERANKER_MODEL = "cross-encoder/ms-marco-MiniLM-L-6-v2"
 RRF_K = 60
