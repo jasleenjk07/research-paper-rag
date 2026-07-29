@@ -1,7 +1,7 @@
 from src.embeddings import get_embedding_model
 from src.vector_store import load_vector_store
 from src.retriever import retrieve_documents
-from src.config import (FAISS_INDEX_PATH, CHUNKS_PATH, TOP_K)
+from src.config import (FAISS_INDEX_PATH, CHUNKS_PATH, FINAL_TOP_K)
 
 def print_retrieved_chunks(query):
     print("=" * 80)
@@ -12,7 +12,7 @@ def print_retrieved_chunks(query):
 
     index, chunks = load_vector_store(FAISS_INDEX_PATH, CHUNKS_PATH)
 
-    retrieved_documents = retrieve_documents(query, index, chunks, embedding_model, TOP_K)
+    retrieved_documents = retrieve_documents(query, index, chunks, embedding_model, FINAL_TOP_K)
 
     for rank, (document, score) in enumerate(retrieved_documents, start=1,):
         metadata = document.metadata
