@@ -25,7 +25,7 @@ if __name__ == "__main__":
     from src.chunker import chunk_documents
     from src.vector_store import build_vector_store
     from src.embeddings import get_embedding_model
-    from src.config import CHUNK_SIZE, CHUNK_OVERLAP, TOP_K
+    from src.config import CHUNK_SIZE, CHUNK_OVERLAP, FINAL_TOP_K
 
     documents = load_documents("data/papers")
 
@@ -45,7 +45,7 @@ if __name__ == "__main__":
         index,
         chunks,
         model,
-        TOP_K
+        FINAL_TOP_K
     )
 
     print("\nQuestion:")
