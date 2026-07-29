@@ -1,5 +1,29 @@
-venv/
+# Python
 __pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual Environment
+venv/
 .env
+
+# IDE
+.vscode/
+.idea/
+
+# macOS
 .DS_Store
-vector_store/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Storage
+storage/faiss.index
+storage/chunks.pkl
+storage/processed_papers.json
+
+# Evaluation
+evaluation/results.json
+
+# Logs
+*.log
