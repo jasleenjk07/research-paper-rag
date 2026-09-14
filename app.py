@@ -1,4 +1,6 @@
+import html
 import json
+import os
 from pathlib import Path
 
 import streamlit as st
@@ -55,7 +57,13 @@ st.markdown(
         '&family=IBM+Plex+Mono:wght@400;500&display=swap'
     );
 
-    html, body, [class*="css"] {
+
+    /* ======================================================
+       GLOBAL FONT
+       ====================================================== */
+
+    html,
+    body {
         font-family: 'DM Sans', sans-serif;
     }
 
@@ -74,6 +82,11 @@ st.markdown(
             #f7f6f2;
     }
 
+
+    /* ======================================================
+       SIDEBAR
+       ====================================================== */
+
     [data-testid="stSidebar"] {
         background: #1c2420;
     }
@@ -86,23 +99,49 @@ st.markdown(
         font-weight: 500;
     }
 
-    h1, h2, h3 {
+
+    /* ======================================================
+       HEADINGS
+       ====================================================== */
+
+    h1,
+    h2,
+    h3 {
         color: #1c2420 !important;
         letter-spacing: -0.02em;
     }
 
+
+    /* ======================================================
+       HERO
+       ====================================================== */
+
     .hero-title {
         font-size: 2.4rem;
         font-weight: 700;
-        color: #1c2420;
+        color: #1c2420 !important;
         margin-bottom: 0.2rem;
     }
 
     .hero-sub {
-        color: #5a655c;
+        color: #5a655c !important;
         font-size: 1.05rem;
         margin-bottom: 1.5rem;
     }
+
+
+    /* ======================================================
+       NORMAL MAIN CONTENT
+       ====================================================== */
+
+    [data-testid="stAppViewContainer"] p {
+        color: #1c2420;
+    }
+
+
+    /* ======================================================
+       METRIC CARDS
+       ====================================================== */
 
     .metric-card {
         background: #ffffff;
@@ -116,7 +155,7 @@ st.markdown(
         font-size: 0.78rem;
         text-transform: uppercase;
         letter-spacing: 0.06em;
-        color: #6b756e;
+        color: #6b756e !important;
         margin-bottom: 0.35rem;
     }
 
@@ -124,9 +163,14 @@ st.markdown(
         font-family: 'IBM Plex Mono', monospace;
         font-size: 1.15rem;
         font-weight: 500;
-        color: #1c2420;
+        color: #1c2420 !important;
         word-break: break-all;
     }
+
+
+    /* ======================================================
+       ANSWER BOX
+       ====================================================== */
 
     .answer-box {
         background: #ffffff;
@@ -136,41 +180,190 @@ st.markdown(
         margin: 0.5rem 0 1.2rem 0;
         box-shadow: 0 1px 3px rgba(28, 36, 32, 0.06);
         line-height: 1.65;
-        color: #1c2420;
+        color: #1c2420 !important;
     }
 
-    .source-preview {
-        color: #3a433d;
-        font-size: 0.92rem;
-        line-height: 1.55;
-        white-space: pre-wrap;
+    .answer-box p {
+        color: #1c2420 !important;
     }
+
+
+    /* ======================================================
+       PAPER CHIP
+       ====================================================== */
 
     .paper-chip {
         display: inline-block;
         background: #eef3ef;
         border: 1px solid #c9d4cb;
-        color: #1c2420;
+        color: #1c2420 !important;
         border-radius: 8px;
         padding: 0.45rem 0.75rem;
         margin: 0.25rem 0.35rem 0.25rem 0;
         font-size: 0.88rem;
     }
 
+
+    /* ======================================================
+       BUTTONS
+       ====================================================== */
+
     div[data-testid="stButton"] > button {
         background: #2f6b4f;
-        color: white;
+        color: #ffffff !important;
         border: none;
         border-radius: 8px;
         font-weight: 600;
         padding: 0.5rem 1.2rem;
     }
 
+    div[data-testid="stButton"] > button p,
+    div[data-testid="stButton"] > button span {
+        color: #ffffff !important;
+    }
+
     div[data-testid="stButton"] > button:hover {
         background: #255640;
-        color: white;
+        color: #ffffff !important;
         border: none;
     }
+
+
+    /* ======================================================
+       FILE UPLOADER
+       ====================================================== */
+
+    [data-testid="stFileUploader"] section {
+        background: #ffffff !important;
+        border: 1px solid #d8ddd6 !important;
+        border-radius: 10px !important;
+    }
+
+    [data-testid="stFileUploader"] section * {
+        color: #1c2420 !important;
+    }
+
+    [data-testid="stFileUploader"] button {
+        background: #eef3ef !important;
+        color: #1c2420 !important;
+        border: 1px solid #c9d4cb !important;
+    }
+
+    [data-testid="stFileUploader"] small {
+        color: #647067 !important;
+    }
+
+
+    /* ======================================================
+       SELECTBOX
+       ====================================================== */
+
+    div[data-baseweb="select"] > div {
+        background: #ffffff !important;
+        border: 1px solid #d8ddd6 !important;
+        color: #1c2420 !important;
+    }
+
+    div[data-baseweb="select"] input {
+        color: #1c2420 !important;
+    }
+
+    div[data-baseweb="select"] span {
+        color: #1c2420 !important;
+    }
+
+    div[data-baseweb="select"] svg {
+        fill: #1c2420 !important;
+    }
+
+
+    /* ======================================================
+       DROPDOWN MENU
+       ====================================================== */
+
+    ul[role="listbox"] {
+        background: #ffffff !important;
+    }
+
+    ul[role="listbox"] li {
+        color: #1c2420 !important;
+        background: #ffffff !important;
+    }
+
+    ul[role="listbox"] li:hover {
+        background: #eef3ef !important;
+    }
+
+
+    /* ======================================================
+       TEXT AREA
+       ====================================================== */
+
+    textarea {
+        background: #ffffff !important;
+        color: #1c2420 !important;
+        border: 1px solid #d8ddd6 !important;
+        border-radius: 10px !important;
+        caret-color: #1c2420 !important;
+    }
+
+    textarea::placeholder {
+        color: #7a847d !important;
+        opacity: 1 !important;
+    }
+
+
+    /* ======================================================
+       TEXT INPUTS
+       ====================================================== */
+
+    input {
+        color: #1c2420 !important;
+        background: #ffffff !important;
+    }
+
+    input::placeholder {
+        color: #7a847d !important;
+        opacity: 1 !important;
+    }
+
+
+    /* ======================================================
+       LABELS
+       ====================================================== */
+
+    [data-testid="stWidgetLabel"] p {
+        color: #1c2420 !important;
+        font-weight: 500;
+    }
+
+
+    /* ======================================================
+       CAPTIONS
+       ====================================================== */
+
+    [data-testid="stCaptionContainer"] {
+        color: #647067 !important;
+    }
+
+    [data-testid="stCaptionContainer"] p {
+        color: #647067 !important;
+    }
+
+
+    /* ======================================================
+       EXPANDERS
+       ====================================================== */
+
+    [data-testid="stExpander"] {
+        border-color: #d8ddd6;
+    }
+
+    [data-testid="stExpander"] p,
+    [data-testid="stExpander"] span {
+        color: #1c2420;
+    }
+
 
     </style>
     """,
@@ -231,6 +424,25 @@ def get_processed_documents():
         return []
 
     return processed
+
+
+def get_llm_provider():
+
+    try:
+
+        if "LLM_PROVIDER" in st.secrets:
+
+            return str(
+                st.secrets["LLM_PROVIDER"]
+            ).lower()
+
+    except Exception:
+        pass
+
+    return os.getenv(
+        "LLM_PROVIDER",
+        "ollama",
+    ).lower()
 
 
 # ============================================================
@@ -344,8 +556,25 @@ def render_sidebar():
         "## Research Paper RAG"
     )
 
+    provider = get_llm_provider()
+
+    if provider in (
+        "groq",
+        "openai",
+    ):
+
+        llm_description = (
+            "Hybrid retrieval + reranking + hosted LLM"
+        )
+
+    else:
+
+        llm_description = (
+            "Hybrid retrieval + reranking + local LLM"
+        )
+
     st.sidebar.caption(
-        "Hybrid retrieval + reranking + local LLM"
+        llm_description
     )
 
     page = st.sidebar.radio(
@@ -371,9 +600,49 @@ def render_sidebar():
         f"{EMBEDDING_MODEL.split('/')[-1]}"
     )
 
-    st.sidebar.text(
-        f"LLM: {LLM_MODEL}"
-    )
+    if provider == "groq":
+
+        groq_model = "Groq hosted model"
+
+        try:
+
+            if "GROQ_MODEL" in st.secrets:
+
+                groq_model = str(
+                    st.secrets["GROQ_MODEL"]
+                )
+
+        except Exception:
+            pass
+
+        st.sidebar.text(
+            f"LLM: {groq_model}"
+        )
+
+    elif provider == "openai":
+
+        openai_model = "OpenAI hosted model"
+
+        try:
+
+            if "OPENAI_MODEL" in st.secrets:
+
+                openai_model = str(
+                    st.secrets["OPENAI_MODEL"]
+                )
+
+        except Exception:
+            pass
+
+        st.sidebar.text(
+            f"LLM: {openai_model}"
+        )
+
+    else:
+
+        st.sidebar.text(
+            f"LLM: {LLM_MODEL}"
+        )
 
     st.sidebar.text(
         f"Rerank: "
@@ -461,8 +730,6 @@ def render_ask_page():
 
                     if processed_files:
 
-                        # Automatically focus on the
-                        # most recently processed document.
                         st.session_state[
                             "selected_document"
                         ] = processed_files[-1]
@@ -704,9 +971,16 @@ def render_ask_page():
         "### Answer"
     )
 
+    safe_answer = html.escape(
+        str(answer)
+    )
+
     st.markdown(
         '<div class="answer-box">'
-        + answer
+        + safe_answer.replace(
+            "\n",
+            "<br>"
+        )
         + '</div>',
         unsafe_allow_html=True,
     )
@@ -764,23 +1038,72 @@ def render_ask_page():
                 + "..."
             )
 
-        with st.container(
-            border=True
-        ):
+        safe_title = html.escape(
+            str(title)
+        )
 
-            st.markdown(
-                f"### #{rank} — {title}"
-            )
+        safe_preview = html.escape(
+            str(preview)
+        )
 
-            st.caption(
-                f"Page {page} · "
-                f"Chunk {chunk_id} · "
-                f"Score {score:.4f}"
-            )
+        safe_chunk_id = html.escape(
+            str(chunk_id)
+        )
 
-            st.write(
-                preview
-            )
+        # ----------------------------------------------------
+        # Use Streamlit's dedicated HTML renderer.
+        # Do NOT use st.markdown() here.
+        # ----------------------------------------------------
+
+        source_html = f"""
+        <div style="
+            background: #ffffff;
+            border: 1px solid #d8ddd6;
+            border-radius: 12px;
+            padding: 20px 22px;
+            margin: 10px 0;
+            box-shadow: 0 1px 3px rgba(28, 36, 32, 0.06);
+            font-family: 'DM Sans', sans-serif;
+        ">
+
+            <div style="
+                color: #1c2420;
+                font-size: 20px;
+                font-weight: 700;
+                line-height: 1.4;
+                margin-bottom: 8px;
+            ">
+                #{rank} — {safe_title}
+            </div>
+
+            <div style="
+                color: #647067;
+                font-size: 13px;
+                line-height: 1.5;
+                margin-bottom: 12px;
+                font-family: 'IBM Plex Mono', monospace;
+            ">
+                Page {page}
+                &nbsp;·&nbsp;
+                Chunk {safe_chunk_id}
+                &nbsp;·&nbsp;
+                Score {score:.4f}
+            </div>
+
+            <div style="
+                color: #3a433d;
+                font-size: 15px;
+                line-height: 1.65;
+            ">
+                {safe_preview}
+            </div>
+
+        </div>
+        """
+
+        st.html(
+            source_html
+        )
 
 
 # ============================================================
@@ -883,10 +1206,14 @@ def render_papers_page():
 
     for name in processed:
 
+        safe_name = html.escape(
+            Path(name).stem
+        )
+
         st.markdown(
             f"""
             <span class="paper-chip">
-                {Path(name).stem}
+                {safe_name}
             </span>
             """,
             unsafe_allow_html=True,
@@ -1122,9 +1449,18 @@ def render_evaluation_page():
         "### Generated answer"
     )
 
+    generated_answer = html.escape(
+        str(
+            item.get(
+                "generated_answer",
+                "",
+            )
+        )
+    )
+
     st.markdown(
         f'<div class="answer-box">'
-        f'{item.get("generated_answer", "")}'
+        f'{generated_answer.replace(chr(10), "<br>")}'
         f'</div>',
         unsafe_allow_html=True,
     )

@@ -1,74 +1,81 @@
 import os
 
-from src.config import LLM_MODEL
-
+import streamlit as st
 from langchain_ollama import ChatOllama
 from langchain_openai import ChatOpenAI
+
+from src.config import LLM_MODEL
+
+
+def get_secret(name, default=None):
+    """
+    Get a configuration value from Streamlit Secrets first,
+    then fall back to environment variables.
+    """
+
+    try:
+        if name in st.secrets:
+            return st.secrets[name]
+    except Exception:
+        pass
+
+    return os.getenv(name, default)
 
 
 def get_llm():
     """
     Return the LLM used by the RAG pipeline.
 
-    By default, the application uses Ollama locally.
+    Local development:
+        LLM_PROVIDER=ollama
 
-    For deployment, set:
-        LLM_PROVIDER=openai
-
-    and provide:
-        OPENAI_API_KEY
+    Streamlit deployment:
+        LLM_PROVIDER=groq
+        GROQ_API_KEY=...
+        GROQ_MODEL=...
     """
 
-    provider = os.getenv(
-        "LLM_PROVIDER",
-        "ollama"
-    ).lower()
+    provider = get_secret("LLM_PROVIDER", "ollama").lower()
 
     # ---------------------------------------------------------
-    # Local development
+    # LOCAL DEVELOPMENT
+    # Ollama + Qwen
     # ---------------------------------------------------------
-
     if provider == "ollama":
 
-        llm = ChatOllama(
+        return ChatOllama(
             model=LLM_MODEL,
             temperature=0,
             reasoning=False
         )
 
-        return llm
-
     # ---------------------------------------------------------
-    # Deployment
+    # DEPLOYMENT
+    # Groq + Qwen
     # ---------------------------------------------------------
+    if provider == "groq":
 
-    if provider == "openai":
-
-        api_key = os.getenv(
-            "OPENAI_API_KEY"
-        )
+        api_key = get_secret("GROQ_API_KEY")
 
         if not api_key:
             raise ValueError(
-                "OPENAI_API_KEY is not configured."
+                "GROQ_API_KEY is not configured. "
+                "Add it to Streamlit Secrets."
             )
 
-        llm = ChatOpenAI(
-            model=os.getenv(
-                "OPENAI_MODEL",
-                "gpt-4o-mini"
-            ),
-            temperature=0,
-            api_key=api_key
+        model = get_secret(
+            "GROQ_MODEL",
+            "qwen/qwen3.6-27b"
         )
 
-        return llm
-
-    # ---------------------------------------------------------
-    # Invalid provider
-    # ---------------------------------------------------------
+        return ChatOpenAI(
+            model=model,
+            temperature=0,
+            api_key=api_key,
+            base_url="https://api.groq.com/openai/v1"
+        )
 
     raise ValueError(
         f"Unsupported LLM_PROVIDER: {provider}. "
-        "Use 'ollama' or 'openai'."
+        "Use 'ollama' or 'groq'."
     )
