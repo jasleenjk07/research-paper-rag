@@ -1,10 +1,17 @@
-from src.retriever import retrieve_documents
-from src.bm25_retriever import retrieve_bm25
+from src.retriever import (
+    retrieve_documents,
+)
+
+from src.bm25_retriever import (
+    retrieve_bm25,
+)
+
 from src.config import (
     RRF_K,
     HYBRID_RETRIEVE_K,
     FINAL_TOP_K,
 )
+
 
 def rrf_fusion(
     dense_results,
@@ -21,43 +28,76 @@ def rrf_fusion(
 
     fusion_scores = {}
 
+    # ========================================================
     # Dense Retrieval contribution
-    for rank, (document, _) in enumerate(
+    # ========================================================
+
+    for rank, (
+        document,
+        _,
+    ) in enumerate(
         dense_results,
         start=1,
     ):
-        chunk_id = document.metadata["chunk_id"]
+
+        chunk_id = document.metadata[
+            "chunk_id"
+        ]
 
         if chunk_id not in fusion_scores:
-            fusion_scores[chunk_id] = {
+
+            fusion_scores[
+                chunk_id
+            ] = {
                 "document": document,
                 "score": 0.0,
             }
 
-        fusion_scores[chunk_id]["score"] += (
+        fusion_scores[
+            chunk_id
+        ]["score"] += (
             1 / (RRF_K + rank)
         )
 
+    # ========================================================
     # BM25 contribution
-    for rank, (document, _) in enumerate(
+    # ========================================================
+
+    for rank, (
+        document,
+        _,
+    ) in enumerate(
         bm25_results,
         start=1,
     ):
-        chunk_id = document.metadata["chunk_id"]
+
+        chunk_id = document.metadata[
+            "chunk_id"
+        ]
 
         if chunk_id not in fusion_scores:
-            fusion_scores[chunk_id] = {
+
+            fusion_scores[
+                chunk_id
+            ] = {
                 "document": document,
                 "score": 0.0,
             }
 
-        fusion_scores[chunk_id]["score"] += (
+        fusion_scores[
+            chunk_id
+        ]["score"] += (
             1 / (RRF_K + rank)
         )
+
+    # ========================================================
+    # Sort fused results
+    # ========================================================
 
     fused_results = []
 
     for item in fusion_scores.values():
+
         fused_results.append(
             (
                 item["document"],
@@ -70,7 +110,9 @@ def rrf_fusion(
         reverse=True,
     )
 
-    return fused_results[:top_k]
+    return fused_results[
+        :top_k
+    ]
 
 
 def retrieve_hybrid(
@@ -81,11 +123,14 @@ def retrieve_hybrid(
     embedding_model,
     retrieve_k=HYBRID_RETRIEVE_K,
     top_k=FINAL_TOP_K,
+    document_name=None,
 ):
     """
     Retrieve documents using both Dense Retrieval
-    and BM25, then combine them using
-    Reciprocal Rank Fusion (RRF).
+    and BM25, optionally restricted to a selected document.
+
+    When document_name is provided, both retrieval methods
+    search only chunks belonging to that document.
     """
 
     dense_results = retrieve_documents(
@@ -94,6 +139,7 @@ def retrieve_hybrid(
         chunks,
         embedding_model,
         retrieve_k,
+        document_name=document_name,
     )
 
     bm25_results = retrieve_bm25(
@@ -101,6 +147,7 @@ def retrieve_hybrid(
         bm25,
         chunks,
         retrieve_k,
+        document_name=document_name,
     )
 
     hybrid_results = rrf_fusion(

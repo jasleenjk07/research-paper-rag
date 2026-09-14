@@ -27,3 +27,9 @@ evaluation/results.json
 
 # Logs
 *.log
+
+# User uploaded documents
+uploads/
+
+# Local backups
+storage_backup/
