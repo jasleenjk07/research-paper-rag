@@ -45,13 +45,13 @@ def save_processed_papers(processed_papers):
             indent=4,
         )
 
+# Ingest PDF files both from the built-in papers folder and from user-uploaded files
+def ingest_pdf_files(pdf_files): 
+    pdf_files = [Path(pdf_path) for pdf_path in pdf_files]
 
-def ingest_documents(papers_folder):
-    papers_folder = Path(papers_folder)
-
-    pdf_files = list(
-        papers_folder.glob("*.pdf")
-    )
+    if not pdf_files:
+        print("No PDF files provided.")
+        return
 
     processed_papers = load_processed_papers()
 
@@ -86,36 +86,55 @@ def ingest_documents(papers_folder):
         index = None
         chunks = []
 
+    successfully_processed = []
+
     for pdf_path in new_papers:
         print(f"\nProcessing: {pdf_path.name}")
 
-        documents = load_pdf(pdf_path)
+        try:
+            documents = load_pdf(pdf_path)
 
-        print(f"Pages loaded: {len(documents)}")
+            print(f"Pages loaded: {len(documents)}")
 
-        new_chunks = chunk_documents(
-            documents,
-            CHUNK_SIZE,
-            CHUNK_OVERLAP,
-        )
-
-        print(f"Chunks created: {len(new_chunks)}")
-
-        if index is None:
-            index, chunks = build_vector_store(
-                new_chunks,
-                embedding_model,
+            new_chunks = chunk_documents(
+                documents,
+                CHUNK_SIZE,
+                CHUNK_OVERLAP,
             )
 
-        else:
-            index, chunks = add_to_vector_store(
-                index,
-                chunks,
-                new_chunks,
-                embedding_model,
+            print(f"Chunks created: {len(new_chunks)}")
+
+            if not new_chunks:
+                print(f"No chunks created for {pdf_path.name}.")
+                continue
+
+            if index is None:
+                index, chunks = build_vector_store(
+                    new_chunks,
+                    embedding_model,
+                )
+
+            else:
+                index, chunks = add_to_vector_store(
+                    index,
+                    chunks,
+                    new_chunks,
+                    embedding_model,
+                )
+
+            processed_papers.add(pdf_path.name)
+            successfully_processed.append(pdf_path.name)
+
+            print(f"Successfully processed: {pdf_path.name}")
+
+        except Exception as e:
+            print(
+                f"Failed to process {pdf_path.name}: {e}"
             )
 
-        processed_papers.add(pdf_path.name)
+    if not successfully_processed:
+        print("\nNo documents were successfully processed.")
+        return
 
     print("\nSaving vector store...")
 
@@ -130,7 +149,36 @@ def ingest_documents(papers_folder):
         processed_papers
     )
 
-    print("Ingestion completed successfully.")
+    print("\nIngestion completed successfully.")
+    print(
+        f"Documents processed: "
+        f"{len(successfully_processed)}"
+    )
+
+
+def ingest_documents(papers_folder):
+    papers_folder = Path(papers_folder)
+
+    if not papers_folder.exists():
+        print(
+            f"Folder does not exist: {papers_folder}"
+        )
+        return
+
+    pdf_files = list(
+        papers_folder.glob("*.pdf")
+    )
+
+    ingest_pdf_files(pdf_files)
+
+
+def ingest_uploaded_files(pdf_paths):
+    pdf_files = [
+        Path(pdf_path)
+        for pdf_path in pdf_paths
+    ]
+
+    ingest_pdf_files(pdf_files)
 
 
 if __name__ == "__main__":
